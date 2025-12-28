@@ -1,0 +1,34 @@
+project:
+  name: "My Project"
+  base_branch: "main"
+  default_verify:
+    - "npm test"
+    - "npm run build"
+    # - "npm run lint"   # uncomment if you have lint
+
+settings:
+  max_attempts_per_task: 3
+  pr_draft: true
+  allow_dirty_worktree: false
+
+tasks:
+  - id: "ui-homepage-polish"
+    title: "Polish the homepage UI"
+    description: |
+      Improve spacing, typography hierarchy, and mobile responsiveness on the homepage.
+      Keep the existing content, just make it look more modern and consistent.
+    acceptance_criteria:
+      - "Homepage looks visually cleaner (spacing + headings)."
+      - "No layout overflow on mobile widths."
+      - "Build succeeds."
+    verify:
+      - "npm test"
+      - "npm run build"
+
+  - id: "add-about-page"
+    title: "Add an About page"
+    description: |
+      Add a simple About page route and link it from the navbar.
+    acceptance_criteria:
+      - "About page exists and is linked from navbar."
+      - "Build succeeds."
