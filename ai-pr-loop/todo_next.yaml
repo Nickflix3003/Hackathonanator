@@ -1,0 +1,99 @@
+project:
+  name: "Hackathonanator UI"
+  base_branch: "main"
+  default_verify:
+    - "npm run build"
+
+settings:
+  max_attempts_per_task: 3
+  pr_draft: true
+  allow_dirty_worktree: false
+  stop_on_failure: true
+  max_files_changed: 0
+  max_lines_changed: 0
+
+tasks:
+  - id: "scaffold-electron-react-ui"
+    title: "Scaffold a desktop UI app (Electron + React + Vite)"
+    description: |
+      Create a new Electron desktop app inside this repo under /ui-app.
+      Use React + Vite for the renderer UI.
+      Provide a single command to run the app in dev mode and a command to build it.
+      Keep the existing python tool code intact (ai-pr-loop/*).
+    acceptance_criteria:
+      - "ui-app/ exists with Electron + React + Vite scaffold."
+      - "`npm install` and `npm run dev` in ui-app launches a desktop window."
+      - "`npm run build` produces a packaged build (or at least build artifacts) without errors."
+      - "Root tool code remains unchanged and usable."
+
+  - id: "todo-editor-main-window"
+    title: "Main window: todo editor + project profile selector"
+    description: |
+      Implement the main window UI:
+      - Left: Google-doc style editor for the todo.yaml content (monospace is fine, but feel like a doc).
+      - Top bar: project dropdown (profiles) + repo path + todo path.
+      - Add autosave: editing updates the todo.yaml file on disk.
+      Store project profiles in a local JSON config file.
+    acceptance_criteria:
+      - "User can select a project profile and see repo/todo paths."
+      - "Editor loads the current todo.yaml from disk."
+      - "Edits autosave back to todo.yaml."
+      - "Profiles persist across app restarts."
+
+  - id: "controls-panel-sliders"
+    title: "Controls panel: sliders/toggles for run settings"
+    description: |
+      Add a right-side controls panel with sliders and toggles for:
+      - max_prs
+      - max_attempts_per_task
+      - stop_on_failure
+      - pr_draft
+      - allow_dirty_worktree (danger UI)
+      - max_files_changed / max_lines_changed
+      Also add a 'Run for N minutes' slider (UI only for now).
+      When user clicks Save Settings, update the settings section in todo.yaml.
+    acceptance_criteria:
+      - "Controls panel exists with sliders/toggles."
+      - "Save Settings updates the YAML settings values correctly."
+      - "UI shows current settings read from the YAML on load."
+
+  - id: "run-stop-stream-logs"
+    title: "Run/Stop controls and live log streaming"
+    description: |
+      Add Run and Stop buttons.
+      Run should spawn the existing python loop (ai-pr-loop/run_loop.py) using the selected repo/todo path.
+      Stream stdout/stderr into a log console panel in the UI in real time.
+      Stop should terminate the running process cleanly.
+      Provide a one-click 'Open logs folder' button if logs exist.
+    acceptance_criteria:
+      - "Run starts the python loop process with correct args."
+      - "UI shows live logs as the loop runs."
+      - "Stop terminates the loop process."
+      - "Errors are shown clearly (non-zero exit codes)."
+
+  - id: "polish-aesthetic-agent-ui"
+    title: "UI polish: modern agent-app aesthetic"
+    description: |
+      Make the UI look like a modern AI agent app:
+      - dark mode default
+      - sidebar + main editor + right controls layout
+      - clean typography and spacing
+      Use a component library (e.g. shadcn/ui) or minimal custom components.
+    acceptance_criteria:
+      - "UI has a cohesive modern aesthetic."
+      - "Layout feels like a professional agent tool."
+      - "No obvious alignment or spacing issues."
+
+  - id: "docs-and-first-run-guide"
+    title: "Add docs for setup and usage"
+    description: |
+      Add a README in /ui-app that explains:
+      - install steps
+      - running dev
+      - building
+      - how to add a project profile
+      - how the app uses ai-pr-loop/run_loop.py
+      Include screenshots placeholders (file names ok).
+    acceptance_criteria:
+      - "ui-app/README.md exists with clear steps."
+      - "First-run flow is documented."

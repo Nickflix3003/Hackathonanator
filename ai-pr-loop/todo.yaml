@@ -1,1 +1,44 @@
-Dry run. Do nothing.
+project:
+  name: "Azterra Website"
+  base_branch: "main"
+  default_verify:
+    - "npm run build"
+
+settings:
+  max_attempts_per_task: 3
+  pr_draft: true
+  allow_dirty_worktree: false
+  stop_on_failure: true
+  max_files_changed: 0   # disabled for now
+  max_lines_changed: 0   # disabled for now
+  max_run_minutes: 0
+  max_task_minutes: 15
+  codex_timeout_seconds: 600
+  verify_timeout_seconds: 600
+  max_verify_output_chars: 12000
+  max_prompt_chars: 30000
+
+tasks:
+  - id: "content-copy-cleanup"
+    title: "Clean up copy and headings on the Azterra homepage"
+    description: |
+      Review the Azterra homepage text and headings.
+      Fix obvious grammar issues, improve clarity, and tighten wording.
+      Do not change routes, layout structure, or add new sections. Remove
+      repetative content only.
+    acceptance_criteria:
+      - "Homepage text reads cleaner and more consistent."
+      - "No layout or routing changes."
+      - "Build succeeds."
+
+  - id: "homepage-spacing-polish"
+    title: "Polish spacing and typography on the homepage"
+    description: |
+      Improve spacing and typography hierarchy on the homepage only.
+      Do not change content meaning, routing, or overall structure.
+      Keep styles consistent with the existing design system.
+    acceptance_criteria:
+      - "Spacing feels more intentional and readable."
+      - "Typography hierarchy is clearer."
+      - "No layout overflow on mobile."
+      - "Build succeeds."

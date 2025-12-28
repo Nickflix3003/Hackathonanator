@@ -10,6 +10,15 @@ settings:
   max_attempts_per_task: 3
   pr_draft: true
   allow_dirty_worktree: false
+  stop_on_failure: true
+  max_files_changed: 0  # 0 disables size checks
+  max_lines_changed: 0  # 0 disables size checks
+  max_run_minutes: 0    # 0 disables run time budget
+  max_task_minutes: 15  # 0 disables per-task time budget
+  codex_timeout_seconds: 600
+  verify_timeout_seconds: 600
+  max_verify_output_chars: 12000
+  max_prompt_chars: 30000
 
 tasks:
   - id: "ui-homepage-polish"

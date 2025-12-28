@@ -7,7 +7,7 @@
 
 ## Quality gates
 - After implementing, ensure verify commands pass (tests/build/lint).
-- If a verify command fails, fix only what’s necessary to make it pass.
+- If a verify command fails, fix only what's necessary to make it pass.
 
 ## Repo hygiene
 - Follow existing patterns and code style.
